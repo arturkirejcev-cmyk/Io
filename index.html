@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для тебе 💗</title>
+    <!-- Tailwind CSS для стилізації -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: radial-gradient(circle at center, #2e1065 0%, #1e1b4b 50%, #0f172a 100%);
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        /* Зоряне небо з мерехтінням */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 10px #f472b6; }
+        }
+
+        /* Анімовані сердечка на фоні */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(244, 114, 182, 0.3);
+            animation: floatUp 8s infinite linear;
+            font-size: 20px;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Стилі сторінок та анімація гортання */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .glass-card {
+            background: rgba(30, 27, 75, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(244, 114, 182, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(236, 72, 153, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 relative">
+
+    <!-- Зоряне небо -->
+    <div class="stars" id="starsContainer"></div>
+
+    <!-- Плаваючі сердечка -->
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <!-- Основний контейнер історій -->
+    <main class="w-full max-w-md relative z-10">
+
+        <!-- Сторінка 1 -->
+        <div id="page-1" class="page active glass-card rounded-3xl p-8 text-center flex-col justify-between min-h-[420px]">
+            <div class="my-auto space-y-6">
+                <div class="w-16 h-16 mx-auto bg-pink-500/20 rounded-full flex items-center justify-center text-3xl animate-bounce">
+                    💌
+                </div>
+                <h1 class="text-2xl md:text-3xl font-bold text-pink-200 leading-snug">
+                    «Я хочу сказати тобі дещо важливе…»
+                </h1>
+                <p class="text-pink-300/80 text-sm">Гортай далі, тут невеличка історія для тебе ✨</p>
+            </div>
+            <button onclick="nextPage(2)" class="mt-6 w-full py-3.5 px-6 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transition-all transform hover:scale-[1.02] active:scale-95">
+                Читати далі ✨
+            </button>
+        </div>
+
+        <!-- Сторінка 2 -->
+        <div id="page-2" class="page glass-card rounded-3xl p-8 text-center flex-col justify-between min-h-[420px]">
+            <div class="my-auto space-y-6">
+                <div class="text-4xl">🌷</div>
+                <p class="text-lg md:text-xl text-gray-200 leading-relaxed font-medium">
+                    «Ніколи не сумуй, добре? Навіть якщо день видався не дуже — пам'ятай, що після хмар завжди з'являється сонце. Нехай у тебе буде якомога більше приводів усміхатися 💗»
+                </p>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="prevPage(1)" class="w-1/3 py-3 bg-white/10 hover:bg-white/20 text-gray-300 font-medium rounded-2xl transition-all">
+                    Назад
+                </button>
+                <button onclick="nextPage(3)" class="w-2/3 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transition-all">
+                    Далі ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 3 -->
+        <div id="page-3" class="page glass-card rounded-3xl p-8 text-center flex-col justify-between min-h-[420px]">
+            <div class="my-auto space-y-6">
+                <div class="text-4xl">📸</div>
+                <p class="text-lg md:text-xl text-gray-200 leading-relaxed font-medium">
+                    «Я чекатиму на твої фото й відео! Мені справді приємно бачити твої моменти, твої усмішки й те, чим ти хочеш поділитися. Тож надсилай, коли захочеш — я буду радий 😊»
+                </p>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="prevPage(2)" class="w-1/3 py-3 bg-white/10 hover:bg-white/20 text-gray-300 font-medium rounded-2xl transition-all">
+                    Назад
+                </button>
+                <button onclick="nextPage(4)" class="w-2/3 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transition-all">
+                    Далі ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 4 -->
+        <div id="page-4" class="page glass-card rounded-3xl p-8 text-center flex-col justify-between min-h-[420px]">
+            <div class="my-auto space-y-6">
+                <div class="text-4xl">🎧</div>
+                <p class="text-lg md:text-xl text-gray-200 leading-relaxed font-medium">
+                    «І на твої голосові теж! У тебе гарний голос, і мені приємно його чути 🥹💗 Тож не соромся надсилати голосові, якщо захочеш щось розповісти».
+                </p>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="prevPage(3)" class="w-1/3 py-3 bg-white/10 hover:bg-white/20 text-gray-300 font-medium rounded-2xl transition-all">
+                    Назад
+                </button>
+                <button onclick="nextPage(5)" class="w-2/3 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transition-all">
+                    Далі ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 5 -->
+        <div id="page-5" class="page glass-card rounded-3xl p-8 text-center flex-col justify-between min-h-[420px]">
+            <div class="my-auto space-y-6">
+                <div class="text-4xl">🫶</div>
+                <p class="text-lg md:text-xl text-gray-200 leading-relaxed font-medium">
+                    «Якщо сумно, нудно, весело або просто хочеться з кимось поговорити — пиши мені. Не потрібно вигадувати привід. Я буду радий твоєму повідомленню 💞»
+                </p>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="prevPage(4)" class="w-1/3 py-3 bg-white/10 hover:bg-white/20 text-gray-300 font-medium rounded-2xl transition-all">
+                    Назад
+                </button>
+                <button onclick="nextPage(6)" class="w-2/3 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transition-all">
+                    Далі ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 6 -->
+        <div id="page-6" class="page glass-card rounded-3xl p-8 text-center flex-col justify-between min-h-[420px]">
+            <div class="my-auto space-y-6">
+                <div class="text-4xl">🌙</div>
+                <p class="text-lg md:text-xl text-gray-200 leading-relaxed font-medium">
+                    «А якщо захочеш мене побачити… То теж просто напиши мені 🤪 Буду радий провести з тобою час і побачити твою усмішку».
+                </p>
+            </div>
+            <div class="flex gap-3 mt-6">
+                <button onclick="prevPage(5)" class="w-1/3 py-3 bg-white/10 hover:bg-white/20 text-gray-300 font-medium rounded-2xl transition-all">
+                    Назад
+                </button>
+                <button onclick="nextPage(7)" class="w-2/3 py-3 bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-lg shadow-pink-500/30 transition-all">
+                    Фінал 💖
+                </button>
+            </div>
+        </div>
+
+        <!-- Сторінка 7 (Остання) -->
+        <div id="page-7" class="page glass-card rounded-3xl p-8 text-center flex-col justify-between min-h-[460px]">
+            <div class="my-auto space-y-5">
+                <div class="text-4xl">💖</div>
+                <p class="text-base md:text-lg text-gray-200 leading-relaxed font-medium">
+                    «Бережи себе, красуне! Нехай у тебе частіше буде гарний настрій, побільше приємних моментів і людей, поруч із якими ти можеш бути собою.<br><br>І пам'ятай: якщо захочеш — я тут 😊»
+                </p>
+                
+                <!-- Інтерактивна кнопка-сюрприз -->
+                <button id="surpriseBtn" onclick="showSurprise()" class="w-full py-3 px-4 bg-pink-500/20 hover:bg-pink-500/30 border border-pink-400/40 text-pink-200 text-sm font-semibold rounded-xl transition-all">
+                    Натисни, якщо усміхнулася 😊
+                </button>
+                
+                <div id="surpriseText" class="hidden text-pink-300 font-semibold text-sm animate-pulse pt-2">
+                    Ось тепер настрій зовсім інший! Ти неймовірна, коли усміхаєшся ✨💗
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="prevPage(6)" class="w-full py-3 bg-white/10 hover:bg-white/20 text-gray-300 font-medium rounded-2xl transition-all">
+                    Назад
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Скрипт для керуваннясторінками та генерації зірочок/сердечок -->
+    <script>
+        // Генерація зірочок
+        const starsContainer = document.getElementById('starsContainer');
+        const starCount = 60;
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // Генерація плаваючих сердечок
+        const heartsContainer = document.getElementById('heartsContainer');
+        const heartSymbols = ['💗', '✨', '🌸', '💖'];
+        setInterval(() => {
+            if (heartsContainer.children.length < 15) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.fontSize = `${Math.random() * 12 + 16}px`;
+                heart.style.animationDuration = `${Math.random() * 4 + 6}s`;
+                heartsContainer.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 10000);
+            }
+        }, 800);
+
+        // Функції перемикання сторінок
+        function nextPage(pageNum) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page-${pageNum}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function prevPage(pageNum) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page-${pageNum}`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Сюрприз на останній сторінці
+        function showSurprise() {
+            const textElem = document.getElementById('surpriseText');
+            const btnElem = document.getElementById('surpriseBtn');
+            textElem.classList.remove('hidden');
+            btnElem.classList.add('opacity-50', 'cursor-not-allowed');
+            btnElem.disabled = true;
+        }
+    </script>
+</body>
+</html>
